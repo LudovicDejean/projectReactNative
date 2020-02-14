@@ -5,6 +5,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  String [URL] = "";
 
   useEffect(() => {
     (async () => {
@@ -16,6 +17,7 @@ export default function App() {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Code Scanné de type ${type} à l'adresse ${data} a été scanné!`);
+    URL = data;
     
   };
 
@@ -40,7 +42,7 @@ export default function App() {
       
 
       {scanned && <Button title={'Tapper pour Scaner de nouveau'} onPress={() => setScanned(false)} />}
-      {scanned && <Button title="Lien du Code Scanné" onPress={ ()=>{ Linking.openURL(`${handleBarCodeScanned.data}`)}} />}
+      {scanned && <Button title={'Lien du Code Scanné'} onPress={ ()=>{ Linking.openURL(URL)} }/>}
     </View>
   );
 }
